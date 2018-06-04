@@ -1,0 +1,132 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "8eec3587-6946-44d8-b4e5-b24aceea5e59": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 210,
+                    "y": 90
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "0089cd03-560d-415c-98de-d26573a3399c": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 340,
+                    "y": 150
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "d6bd1a22-3708-41ee-aa2c-04e54fe3dc66"
+                ]
+            },
+            "d6bd1a22-3708-41ee-aa2c-04e54fe3dc66": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 500,
+                    "y": 180
+                },
+                "z": 0,
+                "embeds": [],
+                "dependson": [
+                    "0089cd03-560d-415c-98de-d26573a3399c"
+                ]
+            }
+        }
+    },
+    "Resources": {
+        "AWSConnectorTenableAccessKey": {
+            "Type": "AWS::IAM::AccessKey",
+            "Properties": {
+                "UserName": {
+                    "Ref": "AWSConnectorTenableUser"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "8eec3587-6946-44d8-b4e5-b24aceea5e59"
+                }
+            },
+            "DependsOn": [
+                "AWSConnectorTenableUser"
+            ]
+        },
+        "AWSConnectorTenableUser": {
+            "Type": "AWS::IAM::User",
+            "Properties": {
+                "UserName": "AWSConnectorTenableUser"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "0089cd03-560d-415c-98de-d26573a3399c"
+                }
+            },
+            "DependsOn": []
+        },
+        "AWSConnectorTenablePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "AWSConnectorTenablePolicy",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "VisualEditor0",
+                            "Effect": "Allow",
+                            "Action": [
+                                "cloudtrail:LookupEvents",
+                                "ec2:DescribeInstances",
+                                "cloudtrail:ListPublicKeys",
+                                "cloudtrail:ListTags",
+                                "cloudtrail:GetTrailStatus",
+                                "cloudtrail:GetEventSelectors",
+                                "cloudtrail:DescribeTrails"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Users": [
+                    {
+                        "Ref": "AWSConnectorTenableUser"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "d6bd1a22-3708-41ee-aa2c-04e54fe3dc66"
+                }
+            },
+            "DependsOn": [
+                "AWSConnectorTenableUser"
+            ]
+        }
+    },
+    "Outputs": {
+        "AccessKeyID": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "AWSConnectorTenableAccessKey",
+                    "SecretAccessKey"
+                ]
+            }
+        },
+        "AccessKey": {
+            "Value": {
+                "Ref": "AWSConnectorTenableAccessKey"
+            }
+        }
+    }
+}
