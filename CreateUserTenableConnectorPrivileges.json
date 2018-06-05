@@ -61,7 +61,8 @@
             },
             "DependsOn": [
                 "AWSConnectorTenableUser"
-            ]
+            ],
+            "DeletionPolicy": "Retain"
         },
         "AWSConnectorTenableUser": {
             "Type": "AWS::IAM::User",
@@ -73,7 +74,8 @@
                     "id": "0089cd03-560d-415c-98de-d26573a3399c"
                 }
             },
-            "DependsOn": []
+            "DependsOn": [],
+            "DeletionPolicy": "Retain"
         },
         "AWSConnectorTenablePolicy": {
             "Type": "AWS::IAM::Policy",
@@ -111,7 +113,8 @@
             },
             "DependsOn": [
                 "AWSConnectorTenableUser"
-            ]
+            ],
+            "DeletionPolicy": "Retain"
         }
     },
     "Outputs": {
